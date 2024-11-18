@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Saver</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Password Saver</h1>
+
+  <form id="saveForm" action="/passwords" method="POST"><!--the action submits data to the /password route with the method POST-->
+    <input type="text" name="website" placeholder="Website" required> <!--name is just to name the inputs-->
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="text" name="password" placeholder="Password" required>
+    <button type="submit">Save</button>
+  </form>
+
+  <section class="password-container-for-styling">
+    <% for (let i = 0; i < passwords.length; i++) { %><!--loops through the passwords array-->
+      <section class="password-item"><!--for styling: grid for the saved stuff-->
+        <section class="info">
+          <p><strong>Website:</strong> <%= passwords[i].website %></p> <!--all of these output values through ejs!!-->
+          <p><strong>Username:</strong> <%= passwords[i].username %></p>
+          <p><strong>Password:</strong> <%= passwords[i].password %></p>
+        </section>
+        <button class="edit-btn" data-id="<%= passwords[i]._id %>">Edit</button><!--the id is very important, it comes from mongo and i need it for the edits so the server knows what's new or what's being changed/added with a new id-->
+        <button class="delete-btn" data-id="<%= passwords[i]._id %>">Delete</button><!--the data-id is a special attribute to hold the _id from mongo. it helps identify what is being edited-->
+        <!--<%= passwords[i]._id %> outputs the database of each _id-->
+      </section>
+    <% } %>
+    </section>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
